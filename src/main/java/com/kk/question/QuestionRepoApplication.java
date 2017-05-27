@@ -10,6 +10,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.kk.question.objects.Option;
 import com.kk.question.objects.Question;
+import com.kk.question.objects.Question.QuestionType;
 import com.kk.question.repo.QuestionRepository;
 
 @SpringBootApplication
@@ -32,11 +33,11 @@ public class QuestionRepoApplication implements CommandLineRunner{
 		optionList1.add(new Option("option3 text", false));
 		optionList1.add(new Option("option4 text", true));
 		
-		questionRepository.save(new Question("question content", optionList1,"Kinematics",Question.Difficulty.MODERATE));
+		questionRepository.save(new Question("Thermodynamics","Kinetic theory of gases","speed of gases", "cbse", "iit-jee", "Zeroth law of thermodynamics says", optionList1,"http://link", QuestionType.SINGLE, "http://link2",Question.Difficulty.MODERATE));
 		
-		questionRepository.save(new Question("question content of kinematics", optionList1,"Kinematics",Question.Difficulty.MODERATE));
+		questionRepository.save(new Question("Kinematics","1-d motion","equations", "AP state board", "iit-jee", "First equation of motion", optionList1,"http://link", QuestionType.SINGLE, "http://link2",Question.Difficulty.MODERATE));
 		
-		List<Question> questionList = questionRepository.findQuestionsByTopic("Kinematics");
+		List<Question> questionList = questionRepository.findAll();
 		
 		System.out.println("first question saved");
 		

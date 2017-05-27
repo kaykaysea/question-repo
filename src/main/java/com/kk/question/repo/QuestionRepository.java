@@ -11,5 +11,8 @@ public interface QuestionRepository extends MongoRepository<Question, String> {
 	
 	@Query("{'topic':?0}")
 	List<Question> findQuestionsByTopic(String topic);
+	
+	@Query("{'head':?0}")
+	List<Question> findQuestionsbyHead(String head);
 
 }

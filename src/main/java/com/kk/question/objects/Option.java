@@ -1,9 +1,12 @@
 package com.kk.question.objects;
 
+import org.springframework.data.mongodb.core.mapping.Field;
+
 public class Option {
 	
 	private String optionText;
 	
+	@Field("isAnswer")
 	private boolean isAnswer;
 
 	public Option(String optionText, boolean isAnswer) {
@@ -22,11 +25,11 @@ public class Option {
 		this.optionText = optionText;
 	}
 
-	public boolean isAnswer() {
+	public boolean getIsAnswer() {
 		return isAnswer;
 	}
 
-	public void setAnswer(boolean isAnswer) {
+	public void setIsAnswer(boolean isAnswer) {
 		this.isAnswer = isAnswer;
 	}
 
