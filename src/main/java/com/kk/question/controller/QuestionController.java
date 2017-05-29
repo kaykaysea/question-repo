@@ -26,6 +26,7 @@ public class QuestionController {
 	QuestionRepository questionRepository;
 	
 	
+	
 	@RequestMapping(value="/all", method = RequestMethod.GET)
 	public List<Question> listAllQuestions()
 	{
