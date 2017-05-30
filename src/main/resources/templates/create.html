@@ -60,6 +60,39 @@
 
 		<div class="well">
       <form id="question-form" data-toggle="validator" role="form">
+        <div class="row">
+
+          <div class="form-group col-md-4">
+
+            <label for="head">Head</label>
+            <input type="text" class="form-control" name="head" id="head" placeholder="Option text" data-error="Please enter option content" required="true">  
+            </input>
+            <div class="help-block with-errors"></div>
+
+          </div>
+
+          <div class="form-group col-md-4">
+
+            <label for="lesson">Lesson</label>
+            <input type="text" class="form-control" name="lesson" id="lesson" placeholder="Option text" data-error="Please enter option content" required="true">  
+            </input>
+            <div class="help-block with-errors"></div>
+
+          </div>
+
+          <div class="form-group col-md-4">
+
+            <label for="topic">Topic</label>
+            <input type="text" class="form-control" name="topic" id="topic" placeholder="Option text" data-error="Please enter option content" required="true">  
+            </input>
+            <div class="help-block with-errors"></div>
+
+          </div>
+
+
+        </div>
+        <hr/>
+
         <div class="form-group">
           <label for="questionContent">Question</label>
           <textarea type="text" class="form-control" name="questionContent" id="questionContent" placeholder="Question content here" rows="6" data-error="Please enter question content" required="true">  
@@ -90,38 +123,45 @@
           </textarea>
           <div class="help-block with-errors"></div>
         </div> 
+        <div class="filler-small"></div>
+        <hr/>
+        
 
-              <div class="row">
+        <div class="filler-small"></div>
+        
+        <div class="row">
 
-               <div class="form-group col-md-2">
-                
-                <label for="head1" >Head</label>
-                <input type="text" class="form-control" name="head1" id="head1" placeholder="Option text" rows="2" data-error="Please enter option content" required="true">  
-                </input>
-                
-                <div class="help-block with-errors"></div>
-              </div>
+          <div class="form-group col-md-4">
 
-               <div class="form-group col-md-2">
-                
-                <label for="head" >Lesson</label>
-                <input type="text" class="form-control" name="lesson" id="lesson" placeholder="Option text" rows="2" data-error="Please enter option content" required="true">  
-                </input>
-                
-                <div class="help-block with-errors"></div>
-              </div>
-              
+            <label for="head">Syllabus</label>
+            <input type="text" class="form-control" name="syllabus" id="syllabus" placeholder="Option text">  
+            </input>
+            <div class="help-block with-errors"></div>
 
-              </div>
+          </div>
 
-        <div class="form-group">
-          
-          <label for="head" >Head</label>
-          <textarea type="text" class="form-control" name="head" id="head" placeholder="Option text" rows="2" data-error="Please enter option content" required="true">  
-          </textarea>
-          
-          <div class="help-block with-errors"></div>
+          <div class="form-group col-md-4">
+
+            <label for="lesson">Exam</label>
+            <input type="text" class="form-control" name="exam" id="exam" placeholder="Option text">  
+            </input>
+            <div class="help-block with-errors"></div>
+
+          </div>
+
+          <div class="form-group col-md-4">
+
+            <label for="topic">Difficulty</label>
+            <input type="text" class="form-control" name="difficulty" id="difficulty" placeholder="Option text">  
+            </input>
+            <div class="help-block with-errors"></div>
+
+          </div>
+
+
         </div>
+
+       <hr/>
         
 
 

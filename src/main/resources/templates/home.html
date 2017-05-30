@@ -67,42 +67,7 @@
 		<hr />
 
     <div id="question-list">
-  		<div class="panel panel-default">
-  			<div class="panel-body">
-  				<div class="row">
-  					<div class="col-md-1"><b>1.</b></div>
-  					<div class="col-md-11">A uniform rod (AB) of length L and
-  						mass 2M rest on smooth horizontal surface. A point mass M moving
-  						horizontally at right angles to the rod with initial velocity v
-  						collides with one end (A) and sticks to it</div>
-  				</div>
-  				<div class="filler-small"></div>
-  				
-  				<div class="row">
-  					<div class="col-md-1"></div>
-  					<div class="col-md-1">a)</div>
-  					<div class="col-md-10">v/3</div>	
-  				</div>
-
-  				<div class="row">
-  					<div class="col-md-1"></div>
-  					<div class="col-md-1">b)</div>
-  					<div class="col-md-10">v/3</div>
-  				</div>
-
-  				<div class="row">
-  					<div class="col-md-1"></div>
-  					<div class="col-md-1">c)</div>
-  					<div class="col-md-10">v/3</div>
-  				</div>
-
-  				<div class="row">
-  					<div class="col-md-1"></div>
-  					<div class="col-md-1">d)</div>
-  					<div class="col-md-10">v/3</div>
-  				</div>
-  			</div>
-  		</div>
+  		
     </div>
 
 	</div>
@@ -115,46 +80,7 @@
 		src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 	<!-- Include all compiled plugins (below), or include individual files as needed -->
 	<script src="js/bootstrap.min.js"></script>
-	<script type="text/javascript">
-         $(document).ready(function() {
-        
-				
-               $.getJSON('question/byTopic/equations', function(jd) {
-
-                  //var qListJson = $.parseJson(jd);
-                  var qstring = '';
-                  var qNo=1;
-                  var qBody = '';
-                  $.each(jd,function(i,item){
-
-                    qBody+= '<div class="panel panel-default"> <div class="panel-body"> <div class="row"> <div class="col-md-1"><b>'
-                      +qNo+
-                      '</b></div> <div class="col-md-11">'
-                      +item.questionContent+
-                      '</div> </div> <div class="filler-small"></div> <div class="row"> <div class="col-md-1"></div> <div class="col-md-1">a)</div> <div class="col-md-10">'
-                      +item.optionList[0].optionText+
-                      '</div> </div> <div class="row"> <div class="col-md-1"></div> <div class="col-md-1">b)</div> <div class="col-md-10">'
-                      +item.optionList[1].optionText+
-                      '</div> </div> <div class="row"> <div class="col-md-1"></div> <div class="col-md-1">c)</div> <div class="col-md-10">'
-                      +item.optionList[2].optionText+
-                      '</div></div> <div class="row"> <div class="col-md-1"></div> <div class="col-md-1">d)</div> <div class="col-md-10">'
-                      +item.optionList[3].optionText+
-                      '</div> </div> </div> </div>';
-
-                    qNo+= 1;
-                    
-
-                  });
-                  
-                  $('#question-list').html(qBody);
-                  
-                  
-               });
-					
-           
-         });
-      </script>
-
+  <script src="js/question-ops.js"></script>
 
 </body>
 </html>

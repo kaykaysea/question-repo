@@ -3,7 +3,6 @@
 
                   function(event){
 
-                    alert( "Handler for .submit() called." );
                     event.preventDefault();
 
                     var qContent = $('#questionContent').val();
@@ -11,16 +10,20 @@
                     var op2 = $('#option2').val();
                     var op3 = $('#option3').val();
                     var op4 = $('#option4').val();
-
-                    alert(qContent);
+                    var head = $('#head').val();
+                    var lesson = $('#lesson').val();
+                    var topic = $('#topic').val();
+                    var syllabus = $('#syllabus').val();
+                    var exam = $('#exam').val();
+                    var difficulty = $('#difficulty').val();
 
                     var jsonObj = 
 
                               {
-                                  "head": "Electrostatics",
-                                  "lesson": "Coulomb's law",
-                                  "topic": "Electric potential",
-                                  "syllabus": "AP state board",
+                                  "head": head,
+                                  "lesson": lesson,
+                                  "topic": topic,
+                                  "syllabus": syllabus,
                                   "exam": "iit-jee",
                                   "questionContent": qContent,
                                   "optionList": [
@@ -44,9 +47,9 @@
                                   "diagramRef": "http://link",
                                   "questionType": "SINGLE",
                                   "solutionDiagramRef": "http://link2",
-                                  "difficulty": "MODERATE"
+                                  "difficulty": difficulty
                                 };
-                                alert(JSON.stringify(jsonObj));
+                                
 
                                 $.ajax({
                                 url: "/question/add",
@@ -65,7 +68,7 @@
 $(document).ready(function() {
 
  				
-               $.getJSON('question/byTopic/equations', function(jd) {
+               $.getJSON('question/all', function(jd) {
 
                   //var qListJson = $.parseJson(jd);
                   var qstring = '';
