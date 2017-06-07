@@ -22,5 +22,12 @@ public class WebPageController {
 		
 	}
 	
+	@RequestMapping(value="/categories", method=RequestMethod.GET)
+	public String renderCategories(){
+		
+		return "category";
+		
+	}
+	
 
 }

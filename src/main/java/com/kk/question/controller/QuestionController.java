@@ -62,7 +62,7 @@ public class QuestionController {
 		
 		logger.info("successfully saved the Question"+question);
 		
-		return new ResponseEntity<>(HttpStatus.CREATED);
+		return new ResponseEntity<String>("success", HttpStatus.OK);
 		
 	}
 	
