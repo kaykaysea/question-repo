@@ -20,6 +20,7 @@ function(event) {
 	for (var i = 0; i < headArray.length; i++) {
 
 		headArrayJson.push({
+
 			"id" : headArray[i],
 			"parent" : "",
 			"path" : ""
@@ -77,7 +78,7 @@ function(event) {
     .done(function(data) {
     console.log('success', data);
     $('#lessonInput').val('');
-    loadChildren(lessonHead);
+    loadChildren(lessonHead,'h');
     })
     .fail(function(xhr) {
     console.log('error', xhr);
@@ -116,7 +117,7 @@ function(event) {
     .done(function(data) {
     console.log('success', data);
     $('#topicInput').val('');
-    loadChildren(topicLesson);
+    loadChildren(topicLesson,'l');
     })
     .fail(function(xhr) {
     console.log('error', xhr);
@@ -132,9 +133,9 @@ function loadHeads(){
 
     var headList = '<ol>';
     $.each(data, function(i, item) {
-
+      var itemId = item.id.replace(/'/g, "&apos;");
       var itemName = item.id.replace(/\s+/g, '');
-      headList += '<li><a class='+itemName+'>' + item.id + '</a></li>'
+      headList += '<li><a href=\'javascript:loadChildren("'+itemId+'","h");\' class='+itemName+'>' + item.id + '</a></li>'
 
     });
 
@@ -146,24 +147,58 @@ function loadHeads(){
 
 }
 
-function loadChildren(head){
-    var url = '/categoryTag/byParent/'+head
+function loadChildren(head,flag){
+    var url = '/categoryTag/byParent/'+head;
+    var listIdentifier = '';
 
-    $.getJSON(url, function(data) {
+    if(flag==='h'){
 
-    var lessonList = '<ol>';
-    $.each(data, function(i, item) {
+      listIdentifier='#lesson-list';
 
-      var itemName = item.id.replace(/\s+/g, '');
-      lessonList += '<li><a class='+itemName+'>' + item.id + '</a></li>'
+      $.getJSON(url, function(data) {
 
-    });
+        var lessonList = '<ol>';
+        $.each(data, function(i, item) {
+          var itemId = item.id.replace(/'/g, "&apos;");
+          var itemName = item.id.replace(/\s+/g, '');
+          lessonList += '<li><a href=\'javascript:loadChildren("'+itemId+'","l");\' class='+itemName+'>' + item.id + '</a></li>'
 
-    lessonList += '</ol>';
+        });
 
-    $('#lesson-list').html(lessonList);
+        lessonList += '</ol>';
 
-  });
+    
+        $(listIdentifier).html(lessonList);
+        $('#forHead').val(head);
+    
+
+      });
+  }
+
+    if(flag==='l'){
+
+      listIdentifier='#topic-list';
+
+      $.getJSON(url, function(data) {
+
+        var lessonList = '<ol>';
+        $.each(data, function(i, item) {
+          var itemId = item.id.replace(/"/g, "&quot;");
+          var itemName = item.id.replace(/\s+/g, '');
+          lessonList += '<li><a class='+itemName+'>' + itemId + '</a></li>'
+
+        });
+
+        lessonList += '</ol>';
+
+    
+        $(listIdentifier).html(lessonList);
+        $('#forLesson').val(head);
+
+      });
+  }
+
+    
 
 }
 
@@ -176,7 +211,16 @@ function enableTypeAhead(){
 
   });
 
+  $('#forLesson').typeahead({
+
+        ajax: '/categoryTag/type/lesson',
+        displayField: 'id'
+
+  });
+
 }
+
+
 
 
 

@@ -24,7 +24,7 @@ public interface CategoryTagRepository extends MongoRepository<CategoryTag, Stri
 	List<CategoryTag> findCategoriesByParent(String parent);
 	
 	@Query("{'path': {$regex : ?0}}")
-	List<CategoryTag> findCategoriesByType(String type);
+	List<CategoryTag> findCategoriesByRegex(String regex);
 	
 	
 }

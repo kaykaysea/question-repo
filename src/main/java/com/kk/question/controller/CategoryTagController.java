@@ -6,7 +6,9 @@ import java.util.regex.Pattern;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.data.mongodb.repository.Query;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.CriteriaDefinition;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -74,19 +76,18 @@ public class CategoryTagController {
 	@RequestMapping(value="/type/{type}",method=RequestMethod.GET)
 	public List<CategoryTag> getCategoriesByType(@PathVariable("type") String entity){
 		
-		//Query query = new 
 		List<CategoryTag> categoryList = null;
 		if(entity.equalsIgnoreCase("lesson")){
-			Pattern lessonPattern = Pattern.compile(Constants.REGEX_PATH_LESSON);
-			categoryList = categoryTagRepository.findCategoriesByType(Constants.REGEX_PATH_LESSON);
+			
+			categoryList = categoryTagRepository.findCategoriesByRegex(Constants.REGEX_PATH_LESSON);
+		
 		}
 		
 		if(entity.equalsIgnoreCase("topic")){
 			
-			Pattern topicPattern = Pattern.compile(Constants.REGEX_PATH_TOPIC);
-			categoryList = categoryTagRepository.findCategoriesByType(Constants.REGEX_PATH_TOPIC);
+			categoryList = categoryTagRepository.findCategoriesByRegex(Constants.REGEX_PATH_TOPIC);
+			
 		}
-		
 		
 		return categoryList;
 	}
