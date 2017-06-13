@@ -10,6 +10,7 @@
 <!-- Bootstrap -->
 <link href="css/bootstrap.min.css" rel="stylesheet" />
 <link href="css/custom.css" rel="stylesheet" />
+<link href="css/smoke.min.css" rel="stylesheet" />
 
 <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -59,125 +60,140 @@
 
 
 		<div class="well">
-      <form id="question-form" data-toggle="validator" role="form">
-        <div class="row">
+			<form id="question-form" data-toggle="validator" role="form">
+				<div class="row">
 
-          <div class="form-group col-md-4">
+					<div class="form-group col-md-4">
 
-            <label for="head">Head</label>
-            <input type="text" class="form-control" name="head" id="head" placeholder="Option text" data-error="Please enter option content" required="true">  
-            </input>
-            <div class="help-block with-errors"></div>
+						<label for="head">Head</label> <input type="text"
+							class="form-control" name="head" id="head"
+							placeholder="Option text" data-smk-msg="Head cannot be empty"
+							required="true"> </input>
+						<div class="help-block with-errors"></div>
 
-          </div>
+					</div>
 
-          <div class="form-group col-md-4">
+					<div class="form-group col-md-4">
 
-            <label for="lesson">Lesson</label>
-            <input type="text" class="form-control" name="lesson" id="lesson" placeholder="Option text" data-error="Please enter option content" required="true">  
-            </input>
-            <div class="help-block with-errors"></div>
+						<label for="lesson">Lesson</label> <input type="text"
+							class="form-control" name="lesson" id="lesson"
+							placeholder="Option text" data-smk-msg="Lesson cannot be empty"
+							 required="true">
+						</input>
+						<div class="help-block with-errors"></div>
 
-          </div>
+					</div>
 
-          <div class="form-group col-md-4">
+					<div class="form-group col-md-4">
 
-            <label for="topic">Topic</label>
-            <input type="text" class="form-control" name="topic" id="topic" placeholder="Option text" data-error="Please enter option content" required="true">  
-            </input>
-            <div class="help-block with-errors"></div>
+						<label for="topic">Topic</label> <input type="text"
+							class="form-control" name="topic" id="topic"
+							placeholder="Option text" data-smk-msg="Topic cannot be empty"
+							required="true">
+						</input>
+						<div class="help-block with-errors"></div>
 
-          </div>
-
-
-        </div>
-        <hr/>
-
-        <div class="form-group">
-          <label for="questionContent">Question</label>
-          <textarea type="text" class="form-control" name="questionContent" id="questionContent" placeholder="Question content here" rows="6" data-error="Please enter question content" required="true">  
-          </textarea>
-          <div class="help-block with-errors"></div>
-        </div>
-        <div class="form-group">
-          <label for="option1">Option 1</label>
-          <textarea type="text" class="form-control" name="option1" id="option1" placeholder="Option text" rows="2" data-error="Please enter option content" required="true">  
-          </textarea>
-          <div class="help-block with-errors"></div>
-        </div> 
-        <div class="form-group">
-          <label for="option2">Option 2</label>
-          <textarea type="text" class="form-control" name="option2" id="option2" placeholder="Option text" rows="2" data-error="Please enter option content" required="true">  
-          </textarea>
-          <div class="help-block with-errors"></div>
-        </div> 
-        <div class="form-group">
-          <label for="option3">Option 3</label>
-          <textarea type="text" class="form-control" name="option3" id="option3" placeholder="Option text" rows="2" data-error="Please enter option content" required="true">  
-          </textarea>
-          <div class="help-block with-errors"></div>
-        </div> 
-        <div class="form-group">
-          <label for="option4">Option 4</label>
-          <textarea type="text" class="form-control" name="option4" id="option4" placeholder="Option text" rows="2" data-error="Please enter option content" required="true">  
-          </textarea>
-          <div class="help-block with-errors"></div>
-        </div> 
-        <div class="filler-small"></div>
-        <hr/>
-        
-
-        <div class="filler-small"></div>
-        
-        <div class="row">
-
-          <div class="form-group col-md-4">
-
-            <label for="head">Syllabus</label>
-            <input type="text" class="form-control" name="syllabus" id="syllabus" placeholder="Option text">  
-            </input>
-            <div class="help-block with-errors"></div>
-
-          </div>
-
-          <div class="form-group col-md-4">
-
-            <label for="lesson">Exam</label>
-            <input type="text" class="form-control" name="exam" id="exam" placeholder="Option text">  
-            </input>
-            <div class="help-block with-errors"></div>
-
-          </div>
-
-          <div class="form-group col-md-4">
-
-            <label for="topic">Difficulty</label>
-            <input type="text" class="form-control" name="difficulty" id="difficulty" placeholder="Option text">  
-            </input>
-            <div class="help-block with-errors"></div>
-
-          </div>
+					</div>
 
 
-        </div>
+				</div>
+				<hr />
 
-       <hr/>
-        
+				<div class="form-group">
+					<label for="questionContent">Question</label>
+					<textarea type="text" class="form-control" name="questionContent"
+						id="questionContent" placeholder="Question content here" rows="6"
+						data-smk-msg="Question content cannot be empty" required="true"></textarea>
+					<div class="help-block with-errors"></div>
+				</div>
+				<div class="form-group">
+					<label for="option1">Option 1</label>
+					<textarea type="text" class="form-control" name="option1"
+						id="option1" placeholder="Option text" rows="2"
+						data-smk-msg="Option 1 cannot be empty" required="true"></textarea>
+					<div class="help-block with-errors"></div>
+				</div>
+				<div class="form-group">
+					<label for="option2">Option 2</label>
+					<textarea type="text" class="form-control" name="option2"
+						id="option2" placeholder="Option text" rows="2"
+						data-smk-msg="Option 2 cannot be empty" required="true"></textarea>
+					<div class="help-block with-errors"></div>
+				</div>
+				<div class="form-group">
+					<label for="option3">Option 3</label>
+					<textarea type="text" class="form-control" name="option3"
+						id="option3" placeholder="Option text" rows="2"
+						data-smk-msg="Option 3 cannot be empty" required="true"></textarea>
+					<div class="help-block with-errors"></div>
+				</div>
+				<div class="form-group">
+					<label for="option4">Option 4</label>
+					<textarea type="text" class="form-control" name="option4"
+						id="option4" placeholder="Option text" rows="2"
+						data-smk-msg="Option 4 cannot be empty" required="true"></textarea>
+					<div class="help-block with-errors"></div>
+				</div>
+				<div class="filler-small"></div>
+				<hr />
 
 
-        <button type="submit" class="btn btn-primary">Submit</button>
-        <!--<button class="btn btn-primary">Reset</button>-->
+				<div class="filler-small"></div>
 
-      </form>
+				<div class="row">
+
+					<div class="form-group col-md-4">
+
+						<label for="head">Syllabus</label> <input type="text"
+							class="form-control" name="syllabus" id="syllabus"
+							data-smk-msg="Syllabus cannot be empty" placeholder="Option text"
+							required="true"></input>
+						<div class="help-block with-errors"></div>
+
+					</div>
+
+					<div class="form-group col-md-4">
+
+						<label for="lesson">Exam</label> <input type="text"
+							class="form-control" name="exam" id="exam"
+							data-smk-msg="Exam cannot be empty" placeholder="Option text"
+							required="true"></input>
+						<div class="help-block with-errors"></div>
+
+					</div>
+
+					<div class="form-group col-md-4">
+
+						<label for="topic">Difficulty</label> <input type="text"
+							class="form-control" name="difficulty" id="difficulty"
+							data-smk-pattern="^(EASY|MODERATE|DIFFICULT|VERYDIFFICULT)$"
+							data-smk-msg="Enter either EASY,MODERATE,DIFFICULT or VERYDIFFICULT"
+							placeholder="Option text" required="true"></input>
+						<div class="help-block with-errors"></div>
+
+					</div>
+
+
+				</div>
+
+				<hr />
 
 
 
-    </div>
+				<button type="submit" class="btn btn-primary" id="questionSubmit">Submit</button>
+				
+
+			</form>
+
+
+
+		</div>
 		<div class="filler"></div>
 
 		<hr />
 
-    <!--<div id="question-list">
+		</div>
+		<!--<div id="question-list">
     </div>-->
 
 	</div>
@@ -186,9 +202,10 @@
 		src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 	<!-- Include all compiled plugins (below), or include individual files as needed -->
 	<script src="js/bootstrap.min.js"></script>
-  <script src="js/validator.min.js"></script>
-  <script src="js/bootstrap-typeahead.min.js"></script>
-  <script src="js/question-ops.js"></script>
+	<!--<script src="js/validator.min.js"></script>-->
+	<script src="js/bootstrap-typeahead.min.js"></script>
+	<script src="js/smoke.min.js"></script>
+	<script src="js/question-ops.js"></script>
 
 </body>
 </html>

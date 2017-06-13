@@ -56,13 +56,13 @@ public class QuestionController {
 	}
 	
 	@RequestMapping(value="/add",method = RequestMethod.POST)
-	public ResponseEntity<String> addQuestion(@RequestBody Question question){
+	public Question addQuestion(@RequestBody Question question){
 		
 		questionRepository.save(question);
 		
 		logger.info("successfully saved the Question"+question);
 		
-		return new ResponseEntity<String>("success", HttpStatus.OK);
+		return question;
 		
 	}
 	

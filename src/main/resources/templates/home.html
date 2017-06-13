@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-<title>Bootstrap 101 Template</title>
+<title>Questions Home</title>
 
 <!-- Bootstrap -->
 <link href="css/bootstrap.min.css" rel="stylesheet" />
@@ -18,14 +18,9 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 
-
-
-
-
 </head>
 <body>
-
-
+	<!-- Top Navigation bar start -->
 	<nav class="navbar navbar-inverse navbar-fixed-top">
 		<div class="container">
 			<div class="navbar-header">
@@ -36,39 +31,34 @@
 						class="icon-bar"></span> <span class="icon-bar"></span> <span
 						class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="#">Project name</a>
+				<a class="navbar-brand" href="#">Questions</a>
 			</div>
 			<div id="navbar" class="collapse navbar-collapse">
 				<ul class="nav navbar-nav">
-					<li class="active"><a href="#">Home</a></li>
-					<li><a href="#about">About</a></li>
-					<li><a href="#contact">Contact</a></li>
+					<li class="active"><a href="home">Home</a></li>
+					<li><a href="create">Create</a></li>
+					<li><a href="categories">Configure</a></li>
 				</ul>
 			</div>
 			<!--/.nav-collapse -->
 		</div>
 	</nav>
-
+	<!-- Top Navigation bar end -->
+	
 	<div class="filler"></div>
-
-
-
-
+	
+	<!-- Main container -->
 	<div class="container">
 
-		<!--<div class="starter-template">
-        <h1>Bootstrap starter template</h1>
-        <p class="lead">Use this document as a way to quickly start any new project.<br/> All you get is this text and a mostly barebones HTML document.</p>
-      </div>-->
 
 		<div class="well">Forms content will go here</div>
 		<div class="filler"></div>
 
 		<hr />
 
-    <div id="question-list">
-  		
-    </div>
+	    <div id="question-list">
+	  		
+	    </div>
 
 	</div>
 
@@ -77,10 +67,11 @@
 
 	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 	<script
-		src="js/jquery.min.js"></script>
+		src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 	<!-- Include all compiled plugins (below), or include individual files as needed -->
 	<script src="js/bootstrap.min.js"></script>
-    <script src="js/question-ops.js"></script>
+	<script src="js/bootstrap-typeahead.min.js"></script>
+  	<script src="js/question-ops.js"></script>
 
 </body>
 </html>

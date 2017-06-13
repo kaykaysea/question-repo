@@ -1,9 +1,15 @@
- $('#question-form').submit(
+ //$('#question-form').submit(
 
-
-function(event){
-
+$('#questionSubmit').click(function(event){
   event.preventDefault();
+  if($('#question-form').smkValidate()){
+
+  alert('validation form');
+  
+
+//function(event){
+
+  //event.preventDefault();
 
   var qContent = $('#questionContent').val();
   var op1 = $('#option1').val();
@@ -59,11 +65,40 @@ function(event){
               type : "POST",
               data: JSON.stringify(jsonObj)
 
-           }).done(alert("success")); 
+           }).done(function(data){
+
+            var subQ='';
+            subQ+='<h5>Submitted following question successfully</h5><div class="panel panel-default"> <div class="panel-body"> <div class="row"> <div class="col-md-1"><b>'
+          +
+          '</b></div> <div class="col-md-11">'
+          +data.questionContent+
+          '</div> </div> <div class="filler-small"></div> <div class="row"> <div class="col-md-1"></div> <div class="col-md-1">a)</div> <div class="col-md-10">'
+          +data.optionList[0].optionText+
+          '</div> </div> <div class="row"> <div class="col-md-1"></div> <div class="col-md-1">b)</div> <div class="col-md-10">'
+          +data.optionList[1].optionText+
+          '</div> </div> <div class="row"> <div class="col-md-1"></div> <div class="col-md-1">c)</div> <div class="col-md-10">'
+          +data.optionList[2].optionText+
+          '</div></div> <div class="row"> <div class="col-md-1"></div> <div class="col-md-1">d)</div> <div class="col-md-10">'
+          +data.optionList[3].optionText+
+          '</div> </div> </div> </div>';
+            $('#submitted-question').html(subQ);
+
+           }); 
 
 
 
-  });
+  //}
+
+}
+
+
+
+}
+
+
+
+);
+  //);
 
 $(document).ready(function() {
 
