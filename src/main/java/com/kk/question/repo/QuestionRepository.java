@@ -14,5 +14,14 @@ public interface QuestionRepository extends MongoRepository<Question, String> {
 	
 	@Query("{'head':?0}")
 	List<Question> findQuestionsbyHead(String head);
-
+	
+	@Query("{_id:?0}")
+	Question getQuestionById(String id);
+	
+	@Query(value="{_id:?0}",delete=true)
+	void deleteQuestionById(String id);
+	
+	@Query("{'head':{$regex : ?0},'lesson':{$regex : ?1},'topic':{$regex : ?2}}")
+	List<Question> getQuestionByQuery(String head, String lesson, String topic);
+	
 }

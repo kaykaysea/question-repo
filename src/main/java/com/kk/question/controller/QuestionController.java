@@ -36,12 +36,20 @@ public class QuestionController {
 		
 	}
 	
+	@RequestMapping(value="/query", method = RequestMethod.POST)
+	public List<Question> listQuestionsByQuery(@RequestBody Question question)
+	{
+		
+		logger.info("GET request for all the questions");
+		return questionRepository.getQuestionByQuery(question.getHead(), question.getLesson(), question.getTopic());
+		
+	}
+	
 	
 	@RequestMapping(value="/byHead/{head}", method = RequestMethod.GET)
 	public List<Question> listQuestionsByHead(@PathVariable("head") String head){
 		
 		logger.info("GETting list of questions for head :"+ head);
-		
 		return questionRepository.findQuestionsbyHead(head);
 		
 	}
@@ -58,12 +66,40 @@ public class QuestionController {
 	@RequestMapping(value="/add",method = RequestMethod.POST)
 	public Question addQuestion(@RequestBody Question question){
 		
-		questionRepository.save(question);
+		Question modQuestion;
+		if(null==question.getId()||question.getId().isEmpty()){
+			
+			questionRepository.save(question);
+			
+		}
+		
+		else{
+			
+			modQuestion = questionRepository.getQuestionById(question.getId());
+			modQuestion.updateQuestion(question);
+			questionRepository.save(modQuestion);
+			question = modQuestion;
+			
+		}
+		
 		
 		logger.info("successfully saved the Question"+question);
 		
 		return question;
 		
+	}
+	
+	
+	@RequestMapping(value="/byId/{id}",method = RequestMethod.GET)
+	public Question getQuestionById(@PathVariable("id") String id){
+		
+		return questionRepository.getQuestionById(id);
+	}
+	
+	@RequestMapping(value="delete/{id}",method = RequestMethod.DELETE)
+	public void deleteQuestionById(@PathVariable("id") String id){
+		
+		questionRepository.deleteQuestionById(id);
 	}
 	
 	

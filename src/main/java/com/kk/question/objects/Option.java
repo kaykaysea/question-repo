@@ -5,6 +5,7 @@ import org.springframework.data.mongodb.core.mapping.Field;
 public class Option {
 	
 	private String optionText;
+	private String opAlpha;
 	
 	@Field("isAnswer")
 	private boolean isAnswer;
@@ -23,6 +24,14 @@ public class Option {
 
 	public void setOptionText(String optionText) {
 		this.optionText = optionText;
+	}
+
+	public String getOpAlpha() {
+		return opAlpha;
+	}
+
+	public void setOpAlpha(String opAlpha) {
+		this.opAlpha = opAlpha;
 	}
 
 	public boolean getIsAnswer() {

@@ -60,6 +60,14 @@ public class Question {
 	}
 
 
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
 	public String getHead() {
 		return head;
 	}
@@ -162,7 +170,19 @@ public class Question {
 		this.difficulty = difficulty;
 	}
 	
-	
+	public void updateQuestion(Question inQuestion){
+		
+		this.questionContent = inQuestion.getQuestionContent();
+		this.head = inQuestion.getHead();
+		this.lesson = inQuestion.getLesson();
+		this.topic = inQuestion.getTopic();
+		this.optionList = inQuestion.getOptionList();
+		this.questionType = inQuestion.getQuestionType();
+		this.difficulty = inQuestion.getDifficulty();
+		this.exam = inQuestion.getExam();
+		this.syllabus = inQuestion.getSyllabus();
+		
+	}
 	
 
 }
