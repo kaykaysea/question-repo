@@ -11,7 +11,14 @@ public class WebPageController {
 	@RequestMapping(value="/home", method=RequestMethod.GET)	
 	public String renderHome(Model model){
 		
-		return "home";
+		return "landing";
+		
+	}
+	
+	@RequestMapping(value="/explore", method=RequestMethod.GET)	
+	public String renderLanding(Model model){
+		
+		return "explore";
 		
 	}
 	
@@ -22,10 +29,10 @@ public class WebPageController {
 		
 	}
 	
-	@RequestMapping(value="/categories", method=RequestMethod.GET)
+	@RequestMapping(value="/configure", method=RequestMethod.GET)
 	public String renderCategories(){
 		
-		return "category";
+		return "configure";
 		
 	}
 	

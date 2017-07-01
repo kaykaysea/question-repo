@@ -157,31 +157,42 @@ $(document).ready(function() {
 function enableTypeAhead(){
 
   $('#head').typeahead({
-
+        onSelect:function(item){
+          //alert(item+'selected');
+          console.log(item.value);
+          loadChildrenDropdown(item.value,'#lesson');
+        },
         ajax: '/categoryTag/path/head',
         displayField: 'id'
 
   });
 
 
-  $('#lesson').typeahead({
+  /*$('#lesson').typeahead({
 
         ajax: '/categoryTag/type/lesson',
         displayField: 'id'
 
+  });*/
+
+   $('#lesson').change(function(){
+    var lesson = $(this).val();
+    console.log($(this).val());
+    loadChildrenDropdown(lesson,'#topic');
   });
 
-  $('#topic').typeahead({
+  /*$('#topic').typeahead({
 
         ajax: '/categoryTag/type/topic',
         displayField: 'id'
 
-  });
+  });*/
 
   $('#head-query').typeahead({
         onSelect:function(item){
           //alert(item+'selected');
           console.log(item.value);
+          loadChildrenDropdown(item.value,'#lesson-query');
         },
 
         ajax: '/categoryTag/path/head',
@@ -189,33 +200,29 @@ function enableTypeAhead(){
 
   });
 
-  /*$('#head-query').select(function(event){
-
-    alert($(this).val());
-  }
-
-
-  );*/
-
-  /*$("#head-query").on('input',function(event){
-
-    alert($(this).val());
-
-  });*/
-
-  $('#lesson-query').typeahead({
-
+  /*$('#lesson-query').typeahead({
+        onSelect:function(item){
+          //alert(item+'selected');
+          console.log(item.value);
+          loadChildrenDropdown(item.value,'#topic-query');
+        },
         ajax: '/categoryTag/type/lesson',
         displayField: 'id'
 
+  });*/
+
+  $('#lesson-query').change(function(){
+    var lesson = $(this).val();
+    console.log($(this).val());
+    loadChildrenDropdown(lesson,'#topic-query');
   });
 
-  $('#topic-query').typeahead({
+  /*$('#topic-query').typeahead({
 
         ajax: '/categoryTag/type/topic',
         displayField: 'id'
 
-  });
+  });*/
 
 }
 
@@ -293,6 +300,21 @@ function loadAllQuestions(){
    });
    //load questions
 
+
+}
+
+
+function loadChildrenDropdown(parent,type){
+  console.log('inside loadChildrenDropdown');
+  var selectId = type;
+  $.getJSON('/categoryTag/byParent/'+parent,function(data){
+    console.log(data);
+    var template = $('#dropdownTemplate').html();
+    var dropdownHTML = '';
+    dropdownHTML = Mustache.to_html(template,data);
+    $(selectId).html(dropdownHTML);
+
+  });
 
 }
 

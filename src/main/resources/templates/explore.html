@@ -64,12 +64,14 @@
 
 					<div class="form-group col-md-4">
 						<label for="lesson">Lesson</label>
-						<input type="text" class="form-control" name="lesson" id="lesson-query"></input>
+						<select class="form-control" id="lesson-query"></select>
+						<!--<input type="text" class="form-control" name="lesson" id="lesson-query"></input>-->
 					</div>
 
 					<div class="form-group col-md-4">
 						<label for="topic">Topic</label>
-						<input type="text" class="form-control" name="topic" id="topic-query"></input>
+						<select class="form-control" id="topic-query"></select>
+						<!--<input type="text" class="form-control" name="topic" id="topic-query"></input>-->
 					</div>
 
 
@@ -124,36 +126,46 @@
 				</div>
 				<div class="modal-body">
 					<div class="well">
-						<form id="question-form" data-toggle="validator" role="form">
+						<form id="question-form" data-toggle="validator" role="form" autocomplete="off">
 							<div class="row">
 
 								<div class="form-group col-md-4">
 								<input type="hidden" id="quesId"></input>
-									<label for="head">Head</label> <input type="text"
+									<label for="head">Head</label> 
+									<input type="text"
 										class="form-control" name="head" id="head"
 										placeholder="Head text" data-smk-msg="Head cannot be empty"
 										required="true"> </input>
+									<!--<select class="form-control" id="head">
+									
+
+									</select>-->
+					
 									<div class="help-block with-errors"></div>
 
 								</div>
 
 								<div class="form-group col-md-4">
 
-									<label for="lesson">Lesson</label> <input type="text"
+									<label for="lesson">Lesson</label>
+									<!--<input type="text"
 										class="form-control" name="lesson" id="lesson"
 										placeholder="Lesson text"
 										data-smk-msg="Lesson cannot be empty" required="true">
-									</input>
+									</input>-->
+									<select class="form-control" id="lesson"></select>
 									<div class="help-block with-errors"></div>
 
 								</div>
 
 								<div class="form-group col-md-4">
 
-									<label for="topic">Topic</label> <input type="text"
+									<label for="topic">Topic</label> 
+									<!--<input type="text"
 										class="form-control" name="topic" id="topic"
 										placeholder="Topic text" data-smk-msg="Topic cannot be empty"
-										required="true"> </input>
+										required="true"> </input>-->
+									<select class="form-control" id="topic"></select>	
 									<div class="help-block with-errors"></div>
 
 								</div>
@@ -321,6 +333,18 @@
 
 			</div>
 		</div>
+
+	</script>
+
+
+	<script id="dropdownTemplate" type="text/template">
+
+			<option></option>
+			{{#.}}
+			<option>{{id}}</option>
+			{{/.}}
+  			
+		
 
 	</script>
 
