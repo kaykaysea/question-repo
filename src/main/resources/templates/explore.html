@@ -231,11 +231,17 @@
 								<div class="form-group col-md-4">
 
 									<label for="exam">Exam</label> 
-									<input type="text"
+									<!--<input type="text"
 										class="form-control" name="exam" id="exam"
 										data-smk-msg="Exam cannot be empty" placeholder="Option text"
-										required="true"></input>
-									<!--<select class="form-control" id="exam"></select>-->
+										required="true"></input>-->
+									<select class="form-control" id="exam" required=true>
+										<option value="">Select</option>
+										<option value="IIT-JEE">IIT-JEE</option>
+										<option value="EAMCET">EAMCET</option>
+										<option value="AIEEE">AIEEE</option>
+										<option value="OTHER">OTHER</option>
+									</select>
 									<div class="help-block with-errors"></div>
 
 								</div>
