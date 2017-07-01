@@ -220,7 +220,7 @@
 
 								<div class="form-group col-md-4">
 
-									<label for="head">Syllabus</label> <input type="text"
+									<label for="syllabus">Syllabus</label> <input type="text"
 										class="form-control" name="syllabus" id="syllabus"
 										data-smk-msg="Syllabus cannot be empty"
 										placeholder="Option text" required="true"></input>
@@ -230,21 +230,31 @@
 
 								<div class="form-group col-md-4">
 
-									<label for="lesson">Exam</label> <input type="text"
+									<label for="exam">Exam</label> 
+									<input type="text"
 										class="form-control" name="exam" id="exam"
 										data-smk-msg="Exam cannot be empty" placeholder="Option text"
 										required="true"></input>
+									<!--<select class="form-control" id="exam"></select>-->
 									<div class="help-block with-errors"></div>
 
 								</div>
 
 								<div class="form-group col-md-4">
 
-									<label for="topic">Difficulty</label> <input type="text"
+									<label for="difficulty">Difficulty</label> 
+									<!--<input type="text"
 										class="form-control" name="difficulty" id="difficulty"
 										data-smk-pattern="^(EASY|MODERATE|DIFFICULT|VERYDIFFICULT)$"
 										data-smk-msg="Enter either EASY,MODERATE,DIFFICULT or VERYDIFFICULT"
-										placeholder="Option text" required="true"></input>
+										placeholder="Option text" required="true"></input>-->
+									<select class="form-control" id="difficulty" required=true>
+										<option value="">Select</option>
+										<option value="Easy">Easy</option>
+										<option value="Medium">Medium</option>
+										<option value="Difficult">Difficult</option>
+										<option value="Very Difficult">Very Difficult</option>
+									</select>	
 									<div class="help-block with-errors"></div>
 
 								</div>
