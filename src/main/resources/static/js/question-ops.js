@@ -75,7 +75,17 @@ $('#questionSubmit').click(function(event){
             }
 
             if(window.location.pathname==="/create"){
-              var subQ='';
+            	
+            	var alertText = 'Successfully submitted question with id:'+data.id;
+            	alert(alertText);
+            	$("#question-form")[0].reset();
+            	$("#MathPreview").empty();
+            	$('#submission-alert').css({"display":"block"});
+            	
+            	
+            	$('#submission-alert').append(alertText);
+            	
+              /*var subQ='';
               subQ+='<h5>Submitted following question successfully</h5><div class="panel panel-default"> <div class="panel-body"> <div class="row"> <div class="col-md-1"><b>'
               +
               '</b></div> <div class="col-md-11">'
@@ -89,8 +99,20 @@ $('#questionSubmit').click(function(event){
               '</div></div> <div class="row"> <div class="col-md-1"></div> <div class="col-md-1">d)</div> <div class="col-md-10">'
               +data.optionList[3].optionText+
               '</div> </div> </div> </div>';
-              $('#submitted-question').html(subQ);
+              $('#submitted-question').html(subQ);*/
 
+            }else{
+            	
+            	var alertText = 'Successfully submitted question with id:'+data.id;
+            	alert(alertText);
+            	$("#question-form")[0].reset();
+            	$("#MathPreview").empty();
+            	$("#MathBuffer").html('');
+            	$('#submission-alert').css({"display":"block"});
+            	
+            	
+            	$('#submission-alert').append(alertText);
+            
             }
 
            }); 

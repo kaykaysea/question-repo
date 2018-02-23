@@ -14,8 +14,14 @@ public class WebPageController {
 		return "landing";
 		
 	}
+	@RequestMapping(value="/mathJax", method=RequestMethod.GET)	
+	public String renderMathJax(Model model){
+		
+		return "mathJaxText";
+		
+	}
 	
-	@RequestMapping(value="/explore", method=RequestMethod.GET)	
+	@RequestMapping(value="/explore/{questionId}", method=RequestMethod.GET)	
 	public String renderLanding(Model model){
 		
 		return "explore";
@@ -25,7 +31,7 @@ public class WebPageController {
 	@RequestMapping(value="/create", method=RequestMethod.GET)	
 	public String renderCreateQuestion(Model model){
 		
-		return "create";
+		return "createQuestion";
 		
 	}
 	
