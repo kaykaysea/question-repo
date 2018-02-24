@@ -21,7 +21,7 @@ public class WebPageController {
 		
 	}
 	
-	@RequestMapping(value="/explore/{questionId}", method=RequestMethod.GET)	
+	@RequestMapping(value="/explore", method=RequestMethod.GET)	
 	public String renderLanding(Model model){
 		
 		return "explore";
