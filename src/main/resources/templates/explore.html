@@ -14,10 +14,15 @@
 <script type="text/x-mathjax-config">
   MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
 </script>
-<script type="text/javascript" async
-  src="MathJax/MathJax.js?config=TeX-AMS_CHTML">
-</script>
 
+<script type="text/javascript"
+  src="MathJax/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+<!-- <script type="text/javascript"
+	src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML">
+	
+</script>-->
+<script src="js/mathJaxOps.js"></script>
 <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 <!--[if lt IE 9]>
@@ -35,8 +40,7 @@
 	<!-- Main container -->
 	<div class="container">
 
-		<div class="pull-right"><button class="btn btn-primary modbut" id="createQuestion" type="submit">Create</button>
-		</div>
+		
 		<div class="filler"></div>
 		<div class="well">
 			<form id="query-form"  role="form" autocomplete="off">
@@ -121,10 +125,7 @@
 										class="form-control" name="head" id="head"
 										placeholder="Head text" data-smk-msg="Head cannot be empty"
 										required="true"> </input>
-									<!--<select class="form-control" id="head">
-									
-
-									</select>-->
+							
 					
 									<div class="help-block with-errors"></div>
 
@@ -134,7 +135,7 @@
 
 									<label for="lesson">Lesson</label>
 
-									<select class="form-control" id="lesson"></select>
+									<select class="form-control" id="lesson" required="true"></select>
 									<div class="help-block with-errors"></div>
 
 								</div>
@@ -143,7 +144,7 @@
 
 									<label for="topic">Topic</label> 
 								
-									<select class="form-control" id="topic"></select>	
+									<select class="form-control" id="topic" required="true"></select>	
 									<div class="help-block with-errors"></div>
 
 								</div>
@@ -157,35 +158,73 @@
 								<textarea type="text" class="form-control"
 									name="questionContent" id="questionContent"
 									placeholder="Question content here" rows="6"
+									onkeyup="Preview.Update()"
 									data-smk-msg="Question content cannot be empty" required="true"></textarea>
 								<div class="help-block with-errors"></div>
 							</div>
+							<hr>
 							<div class="form-group">
-								<label for="option1">Option 1</label>
+								
+								<label>Option 1</label>
 								<textarea type="text" class="form-control" name="option1"
 									id="option1" placeholder="Option text" rows="2"
+									onkeyup="Preview.Update()"
 									data-smk-msg="Option 1 cannot be empty" required="true"></textarea>
+								<div class="row">
+									<div class="form-group col-md-4">
+										<div class="checkbox">
+											<label><input id="op1isAns" type="checkbox" value="checked">Is Answer?</label>
+										</div>
+									</div>
+								</div>	
 								<div class="help-block with-errors"></div>
 							</div>
+							<hr>
 							<div class="form-group">
 								<label for="option2">Option 2</label>
 								<textarea type="text" class="form-control" name="option2"
 									id="option2" placeholder="Option text" rows="2"
+									onkeyup="Preview.Update()"
 									data-smk-msg="Option 2 cannot be empty" required="true"></textarea>
+								<div class="row">
+									<div class="form-group col-md-4">
+										<div class="checkbox">
+											<label><input id="op2isAns" type="checkbox" value="checked">Is Answer?</label>
+										</div>
+									</div>
+								</div>		
 								<div class="help-block with-errors"></div>
 							</div>
+							<hr>
 							<div class="form-group">
 								<label for="option3">Option 3</label>
 								<textarea type="text" class="form-control" name="option3"
 									id="option3" placeholder="Option text" rows="2"
+									onkeyup="Preview.Update()"
 									data-smk-msg="Option 3 cannot be empty" required="true"></textarea>
+								<div class="row">
+									<div class="form-group col-md-4">
+										<div class="checkbox">
+											<label><input id="op3isAns" type="checkbox" value="checked">Is Answer?</label>
+										</div>
+									</div>
+								</div>		
 								<div class="help-block with-errors"></div>
 							</div>
+							<hr>
 							<div class="form-group">
 								<label for="option4">Option 4</label>
 								<textarea type="text" class="form-control" name="option4"
 									id="option4" placeholder="Option text" rows="2"
+									onkeyup="Preview.Update()"
 									data-smk-msg="Option 4 cannot be empty" required="true"></textarea>
+								<div class="row">
+									<div class="form-group col-md-4">
+										<div class="checkbox">
+											<label><input id="op4isAns" type="checkbox" value="checked">Is Answer?</label>
+										</div>
+									</div>
+								</div>		
 								<div class="help-block with-errors"></div>
 							</div>
 							<div class="filler-small"></div>
@@ -196,7 +235,7 @@
 
 							<div class="row">
 
-								<div class="form-group col-md-4">
+								<div class="form-group col-md-3">
 
 									<label for="syllabus">Syllabus</label> <input type="text"
 										class="form-control" name="syllabus" id="syllabus"
@@ -206,7 +245,7 @@
 
 								</div>
 
-								<div class="form-group col-md-4">
+								<div class="form-group col-md-3">
 
 									<label for="exam">Exam</label> 
 									<!--<input type="text"
@@ -215,16 +254,23 @@
 										required="true"></input>-->
 									<select class="form-control" id="exam" required=true>
 										<option value="">Select</option>
-										<option value="IIT-JEE">IIT-JEE</option>
-										<option value="EAMCET">EAMCET</option>
-										<option value="AIEEE">AIEEE</option>
-										<option value="OTHER">OTHER</option>
 									</select>
 									<div class="help-block with-errors"></div>
 
 								</div>
 
-								<div class="form-group col-md-4">
+								<div class="form-group col-md-3">
+
+									<label for="exam-year">Year</label> <select class="form-control"
+										id="exam-year" required=true>
+										<option value="">Select</option>
+
+									</select>
+									<div class="help-block with-errors"></div>
+
+								</div>
+
+								<div class="form-group col-md-3">
 
 									<label for="difficulty">Difficulty</label> 
 									<!--<input type="text"
@@ -234,10 +280,10 @@
 										placeholder="Option text" required="true"></input>-->
 									<select class="form-control" id="difficulty" required=true>
 										<option value="">Select</option>
-										<option value="Easy">Easy</option>
-										<option value="Medium">Medium</option>
-										<option value="Difficult">Difficult</option>
-										<option value="Very Difficult">Very Difficult</option>
+										<option value="EASY">Easy</option>
+										<option value="MODERATE">Medium</option>
+										<option value="DIFFICULT">Difficult</option>
+										<option value="VERYDIFFICULT">Very Difficult</option>
 									</select>	
 									<div class="help-block with-errors"></div>
 
@@ -247,7 +293,13 @@
 							</div>
 
 							<hr />
-
+							<label>Preview:</label>
+							<div class="panel">
+								<div class="panel-body">
+									<div id="MathPreview"></div>
+									<div id="MathBuffer"></div>
+								</div>
+							</div>
 
 
 							<button type="submit" class="btn btn-primary" id="questionSubmit">Submit
@@ -263,20 +315,19 @@
 
 				</div>
 
-
+			
 
 
 
 			</div>
-			<!--<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-				<button type="button" class="btn btn-primary">Save changes</button>
-			</div>-->
+
 		</div>
 	</div>
 	</div>
 
-
+	<script>
+			Preview.Init();
+	</script>
 
 	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 	<!--<script
@@ -336,7 +387,7 @@
 
 			<option></option>
 			{{#.}}
-			<option>{{id}}</option>
+			<option value="{{id}}">{{id}}</option>
 			{{/.}}
   			
 		

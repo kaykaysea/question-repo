@@ -28,6 +28,7 @@ public class WebPageController {
 		
 	}
 	
+	
 	@RequestMapping(value="/create", method=RequestMethod.GET)	
 	public String renderCreateQuestion(Model model){
 		

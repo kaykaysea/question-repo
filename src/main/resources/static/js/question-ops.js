@@ -1,4 +1,4 @@
- //$('#question-form').submit(
+
 
 $('#questionSubmit').click(function(event){
   event.preventDefault();
@@ -6,14 +6,19 @@ $('#questionSubmit').click(function(event){
     var quesId = $('#quesId').val();
     var qContent = $('#questionContent').val();
     var op1 = $('#option1').val();
+    var op1isAns = $('#op1isAns').is(":checked");
     var op2 = $('#option2').val();
+    var op2isAns = $('#op2isAns').is(":checked");
     var op3 = $('#option3').val();
+    var op3isAns = $('#op3isAns').is(":checked");
     var op4 = $('#option4').val();
+    var op4isAns = $('#op4isAns').is(":checked");
     var head = $('#head').val();
     var lesson = $('#lesson').val();
     var topic = $('#topic').val();
     var syllabus = $('#syllabus').val();
     var exam = $('#exam').val();
+    var examyear = $('#exam-year').val();
     var difficulty = $('#difficulty').val();
     var idKey = 'id';
 
@@ -25,27 +30,28 @@ $('#questionSubmit').click(function(event){
                 "lesson": lesson,
                 "topic": topic,
                 "syllabus": syllabus,
-                "exam": "iit-jee",
+                "exam": exam,
+                "year":examyear,
                 "questionContent": qContent,
                 "optionList": [
                   {
                     "optionText": op1,
-                    "isAnswer": false,
+                    "isAnswer": op1isAns,
                     "opAlpha" : "a"
                   },
                   {
                     "optionText": op2,
-                    "isAnswer": false,
+                    "isAnswer": op2isAns,
                     "opAlpha" : "b"
                   },
                   {
                     "optionText": op3,
-                    "isAnswer": false,
+                    "isAnswer": op3isAns,
                     "opAlpha" : "c"
                   },
                   {
                     "optionText": op4,
-                    "isAnswer": true,
+                    "isAnswer": op4isAns,
                     "opAlpha" : "d"
                   }
                 ],
@@ -85,22 +91,7 @@ $('#questionSubmit').click(function(event){
             	
             	$('#submission-alert').append(alertText);
             	
-              /*var subQ='';
-              subQ+='<h5>Submitted following question successfully</h5><div class="panel panel-default"> <div class="panel-body"> <div class="row"> <div class="col-md-1"><b>'
-              +
-              '</b></div> <div class="col-md-11">'
-              +data.questionContent+
-              '</div> </div> <div class="filler-small"></div> <div class="row"> <div class="col-md-1"></div> <div class="col-md-1">a)</div> <div class="col-md-10">'
-              +data.optionList[0].optionText+
-              '</div> </div> <div class="row"> <div class="col-md-1"></div> <div class="col-md-1">b)</div> <div class="col-md-10">'
-              +data.optionList[1].optionText+
-              '</div> </div> <div class="row"> <div class="col-md-1"></div> <div class="col-md-1">c)</div> <div class="col-md-10">'
-              +data.optionList[2].optionText+
-              '</div></div> <div class="row"> <div class="col-md-1"></div> <div class="col-md-1">d)</div> <div class="col-md-10">'
-              +data.optionList[3].optionText+
-              '</div> </div> </div> </div>';
-              $('#submitted-question').html(subQ);*/
-
+              
             }else{
             	
             	var alertText = 'Successfully submitted question with id:'+data.id;
@@ -112,6 +103,7 @@ $('#questionSubmit').click(function(event){
             	
             	
             	$('#submission-alert').append(alertText);
+            	$("#questionEditModal").modal('hide');
             
             }
 
@@ -159,28 +151,38 @@ $("#querySubmit").click(function(event){
       });
       
       $('#question-list').html(questionHTML);
+      MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
 
     });
-
+   
 
 });
 
 
 $(document).ready(function() {
 
+   populateExamDropdown();
+   populateExamYear();
    enableTypeAhead();
 
-   loadAllQuestions();
+   if($(location).attr('pathname')==='/explore'){
+	   
+	   loadAllQuestions();
+	   
+   }	
+   
     
  	
 					
 });
 
+
+
+
 function enableTypeAhead(){
 
   $('#head').typeahead({
         onSelect:function(item){
-          //alert(item+'selected');
           console.log(item.value);
           loadChildrenDropdown(item.value,'#lesson');
         },
@@ -190,29 +192,16 @@ function enableTypeAhead(){
   });
 
 
-  /*$('#lesson').typeahead({
-
-        ajax: '/categoryTag/type/lesson',
-        displayField: 'id'
-
-  });*/
-
-   $('#lesson').change(function(){
+  $('#lesson').change(function(){
     var lesson = $(this).val();
     console.log($(this).val());
     loadChildrenDropdown(lesson,'#topic');
   });
 
-  /*$('#topic').typeahead({
 
-        ajax: '/categoryTag/type/topic',
-        displayField: 'id'
-
-  });*/
 
   $('#head-query').typeahead({
         onSelect:function(item){
-          //alert(item+'selected');
           console.log(item.value);
           loadChildrenDropdown(item.value,'#lesson-query');
         },
@@ -222,56 +211,49 @@ function enableTypeAhead(){
 
   });
 
-  /*$('#lesson-query').typeahead({
-        onSelect:function(item){
-          //alert(item+'selected');
-          console.log(item.value);
-          loadChildrenDropdown(item.value,'#topic-query');
-        },
-        ajax: '/categoryTag/type/lesson',
-        displayField: 'id'
-
-  });*/
-
   $('#lesson-query').change(function(){
     var lesson = $(this).val();
     console.log($(this).val());
     loadChildrenDropdown(lesson,'#topic-query');
   });
 
-  /*$('#topic-query').typeahead({
-
-        ajax: '/categoryTag/type/topic',
-        displayField: 'id'
-
-  });*/
 
 }
 
 function enableQuestionModal(){
-
+  
   $(".modbut").click(function(){
-        //alert("modal click");
         var qId=$(this).attr("data-id");
-        //alert(qId);
         $("#questionEditModal").modal('show');
+        
 
         $.getJSON('question/byId/'+qId,function(question){
+        	
           $("#quesId").val(question.id);
           $("#head").val(question.head);
-          $("#lesson").val(question.lesson);
-          $("#topic").val(question.topic);
+          loadChildrenDropdown(question.head,'#lesson',question.lesson);
+          loadChildrenDropdown(question.lesson,'#topic',question.topic);
+      
           $("#questionContent").val(question.questionContent);
           $("#option1").val(question.optionList[0].optionText);
+          $("#op1isAns").attr('checked',question.optionList[0].isAnswer);
           $("#option2").val(question.optionList[1].optionText);
+          $("#op2isAns").attr('checked',question.optionList[1].isAnswer);
           $("#option3").val(question.optionList[2].optionText);
+          $("#op3isAns").attr('checked',question.optionList[2].isAnswer);
           $("#option4").val(question.optionList[3].optionText);
+          $("#op4isAns").attr('checked',question.optionList[3].isAnswer);
           $("#syllabus").val(question.syllabus);
           $("#exam").val(question.exam);
+          $("#exam-year").val(question.year);
           $("#difficulty").val(question.difficulty);
-
+          Preview.Update();
 
         });
+        
+        
+        
+        
     });
 
   $(".delbut").click(function(){
@@ -297,8 +279,7 @@ function enableQuestionModal(){
 }
 
 function loadAllQuestions(){
-
-  //load questions      
+    
    $.getJSON('question/all', function(jd) {
 
       
@@ -320,13 +301,11 @@ function loadAllQuestions(){
       enableQuestionModal();
       
    });
-   //load questions
-
 
 }
 
 
-function loadChildrenDropdown(parent,type){
+function loadChildrenDropdown(parent,type,selectedvalue){
   console.log('inside loadChildrenDropdown');
   var selectId = type;
   $.getJSON('/categoryTag/byParent/'+parent,function(data){
@@ -335,9 +314,40 @@ function loadChildrenDropdown(parent,type){
     var dropdownHTML = '';
     dropdownHTML = Mustache.to_html(template,data);
     $(selectId).html(dropdownHTML);
+    $(selectId).val(selectedvalue);
 
   });
 
 }
 
+function populateExamDropdown(){
+	
+	$.ajax({
+		url:'/exam/all',
+		type:'get',
+		success:function(response){
+			
+			var len = response.length;
+			
+			for( var i = 0; i<len; i++){
+                var id = response[i]['id'];
+                var name = response[i]['name'];
+                
+                $("#exam").append("<option value='"+name+"'>"+name+"</option>");
+
+            }
+		}
+	
+	});
+	
+}
+
+function populateExamYear(){
+	
+	for(var i=2018;i>=1960;i--){
+		
+		$("#exam-year").append("<option value='"+i+"'>"+i+"</option>");
+		
+	}
+}
 

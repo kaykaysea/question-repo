@@ -19,6 +19,8 @@ public class Question {
 	
 	private String exam;
 	
+	private String year;
+	
 	private String questionContent;
 	
 	private List<Option> optionList;
@@ -42,7 +44,7 @@ public class Question {
 	
 	public Question(){};
 
-	public Question(String head, String lesson, String topic, String syllabus, String exam, String questionContent,
+	public Question(String head, String lesson, String topic, String syllabus, String exam, String year, String questionContent,
 			List<Option> optionList, String diagramRef, QuestionType questionType, String solutionDiagramRef,
 			Difficulty difficulty) {
 		super();
@@ -51,6 +53,7 @@ public class Question {
 		this.topic = topic;
 		this.syllabus = syllabus;
 		this.exam = exam;
+		this.year=year;
 		this.questionContent = questionContent;
 		this.optionList = optionList;
 		this.diagramRef = diagramRef;
@@ -123,6 +126,14 @@ public class Question {
 	}
 
 
+	public String getYear() {
+		return year;
+	}
+
+	public void setYear(String year) {
+		this.year = year;
+	}
+
 	public void setDiagramRef(String diagramRef) {
 		this.diagramRef = diagramRef;
 	}
@@ -180,6 +191,7 @@ public class Question {
 		this.questionType = inQuestion.getQuestionType();
 		this.difficulty = inQuestion.getDifficulty();
 		this.exam = inQuestion.getExam();
+		this.year = inQuestion.getYear();
 		this.syllabus = inQuestion.getSyllabus();
 		
 	}

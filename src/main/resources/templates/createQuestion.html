@@ -14,104 +14,14 @@
   });
 </script>
 <script type="text/javascript"
+  src="MathJax/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+<!-- <script type="text/javascript"
 	src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML">
 	
-</script>
-<script>
-	var Preview = {
-		delay : 150, // delay after keystroke before updating
+</script>-->
+<script src="js/mathJaxOps.js"></script>
 
-		preview : null, // filled in by Init below
-		buffer : null, // filled in by Init below
-
-		timeout : null, // store setTimout id
-		mjRunning : false, // true when MathJax is processing
-		oldText : null, // used to check if an update is needed
-
-		//
-		//  Get the preview and buffer DIV's
-		//
-		Init : function() {
-			this.preview = document.getElementById("MathPreview");
-			this.buffer = document.getElementById("MathBuffer");
-		},
-
-		//
-		//  Switch the buffer and preview, and display the right one.
-		//  (We use visibility:hidden rather than display:none since
-		//  the results of running MathJax are more accurate that way.)
-		//
-		SwapBuffers : function() {
-			var buffer = this.preview, preview = this.buffer;
-			this.buffer = buffer;
-			this.preview = preview;
-			buffer.style.visibility = "hidden";
-			buffer.style.position = "absolute";
-			preview.style.position = "";
-			preview.style.visibility = "";
-		},
-
-		//
-		//  This gets called when a key is pressed in the textarea.
-		//  We check if there is already a pending update and clear it if so.
-		//  Then set up an update to occur after a small delay (so if more keys
-		//    are pressed, the update won't occur until after there has been 
-		//    a pause in the typing).
-		//  The callback function is set up below, after the Preview object is set up.
-		//
-		Update : function() {
-			if (this.timeout) {
-				clearTimeout(this.timeout)
-			}
-			this.timeout = setTimeout(this.callback, this.delay);
-		},
-
-		//
-		//  Creates the preview and runs MathJax on it.
-		//  If MathJax is already trying to render the code, return
-		//  If the text hasn't changed, return
-		//  Otherwise, indicate that MathJax is running, and start the
-		//    typesetting.  After it is done, call PreviewDone.
-		//  
-		CreatePreview : function() {
-			Preview.timeout = null;
-			if (this.mjRunning)
-				return;
-			var questionText = document.getElementById("questionContent").value;
-			var option1Text = document.getElementById("option1").value;
-			var option2Text = document.getElementById("option2").value;
-			var option3Text = document.getElementById("option3").value;
-			var option4Text = document.getElementById("option4").value;
-
-			//var text = document.getElementById("MathInput").value;
-			var text = questionText + "<br/><br/>" + "a) " + option1Text
-					+ "<br/><br/>" + "b) " + option2Text + "<br/><br/>" + "c) "
-					+ option3Text + "<br/><br/>" + "d) " + option4Text;
-			if (text === this.oldtext)
-				return;
-			this.buffer.innerHTML = this.oldtext = text;
-			this.mjRunning = true;
-			MathJax.Hub.Queue([ "Typeset", MathJax.Hub, this.buffer ], [
-					"PreviewDone", this ]);
-		},
-
-		//
-		//  Indicate that MathJax is no longer running,
-		//  and swap the buffers to show the results.
-		//
-		PreviewDone : function() {
-			this.mjRunning = false;
-			this.SwapBuffers();
-		}
-
-	};
-
-	//
-	//  Cache a callback to the CreatePreview action
-	//
-	Preview.callback = MathJax.Callback([ "CreatePreview", Preview ]);
-	Preview.callback.autoReset = true; // make sure it can run more than once
-</script>
 <!-- Bootstrap -->
 <link href="css/bootstrap.min.css" rel="stylesheet" />
 <link href="css/custom.css" rel="stylesheet" />
@@ -138,7 +48,7 @@
 		
 	
 		<div class="row">
-			<div class="col-md-8">
+			<div class="col-md-8 vertical-border">
 			
 				<div class="form-group">
 					<label for="questionContent">Question</label>
@@ -147,13 +57,23 @@
 								onkeyup="Preview.Update()"
 								data-smk-msg="Question content cannot be empty" required="true"></textarea>
 
-						</div>
+				</div>
+				<br>
+				<br>
 				<div class="form-group">
 					<label for="option1">Option 1</label>
 					<textarea type="text" class="form-control" name="option1"
 						onkeyup="Preview.Update()" id="option1" placeholder="Option text"
 						rows="2" data-smk-msg="Option 1 cannot be empty" required="true"></textarea>
-					<div class="help-block with-errors"></div>
+							<div class="row">
+								<div class="form-group col-md-4">
+									<div class="checkbox">
+										<label><input id="op1isAns" type="checkbox"
+											value="checked">Is Answer?</label>
+									</div>
+								</div>
+							</div>
+							<div class="help-block with-errors"></div>
 				</div>
 		
 				<div class="form-group">
@@ -161,6 +81,14 @@
 					<textarea type="text" class="form-control" name="option2"
 						onkeyup="Preview.Update()" id="option2" placeholder="Option text"
 						rows="2" data-smk-msg="Option 2 cannot be empty" required="true"></textarea>
+						<div class="row">
+								<div class="form-group col-md-4">
+									<div class="checkbox">
+										<label><input id="op2isAns" type="checkbox"
+											value="checked">Is Answer?</label>
+									</div>
+								</div>
+							</div>
 					<div class="help-block with-errors"></div>
 				</div>
 		
@@ -169,6 +97,14 @@
 					<textarea type="text" class="form-control" name="option3"
 						onkeyup="Preview.Update()" id="option3" placeholder="Option text"
 						rows="2" data-smk-msg="Option 3 cannot be empty" required="true"></textarea>
+						<div class="row">
+								<div class="form-group col-md-4">
+									<div class="checkbox">
+										<label><input id="op3isAns" type="checkbox"
+											value="checked">Is Answer?</label>
+									</div>
+								</div>
+							</div>
 					<div class="help-block with-errors"></div>
 				</div>
 		
@@ -177,6 +113,14 @@
 					<textarea type="text" class="form-control" name="option4"
 						onkeyup="Preview.Update()" id="option4" placeholder="Option text"
 						rows="2" data-smk-msg="Option 4 cannot be empty" required="true"></textarea>
+						<div class="row">
+								<div class="form-group col-md-4">
+									<div class="checkbox">
+										<label><input id="op4isAns" type="checkbox"
+											value="checked">Is Answer?</label>
+									</div>
+								</div>
+							</div>
 					<div class="help-block with-errors"></div>
 				</div>
 	
@@ -199,7 +143,7 @@
 						<div class="help-block with-errors"></div>
   				
   				</div>
-  				<br/>
+  				
   				<div class="form-group">
 
 						<label for="topic">Topic</label>
@@ -207,7 +151,7 @@
 						<div class="help-block with-errors"></div>
 
   				</div>
-			
+				<br>
 				<hr/>
 				
 				<div class="form-group">
@@ -222,12 +166,19 @@
 
 				<div class="form-group">
 
-					<label for="lesson">Exam</label> 	<select class="form-control" id="exam" required=true>
+					<label for="exam">Exam</label> 	<select class="form-control" id="exam" required=true>
 										<option value="">Select</option>
-										<option value="IIT-JEE">IIT-JEE</option>
-										<option value="EAMCET">EAMCET</option>
-										<option value="AIEEE">AIEEE</option>
-										<option value="OTHER">OTHER</option>
+										
+									</select>
+					<div class="help-block with-errors"></div>
+
+				</div>
+				
+				<div class="form-group">
+
+					<label for="lesson">Year</label> 	<select class="form-control" id="exam-year" required=true>
+										<option value="">Select</option>
+										
 									</select>
 					<div class="help-block with-errors"></div>
 
@@ -247,7 +198,7 @@
 
 				</div>
 				
-				<hr/>
+				
 
 			<br />
 			<br />

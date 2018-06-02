@@ -127,6 +127,65 @@ function(event) {
 });
 
 
+$('#editExamModal').on('show.bs.modal', function(e) {
+	
+	loadExams();
+	
+	
+	
+});
+
+
+$('#exam-form').submit(
+
+		function(event) {
+
+			event.preventDefault();
+
+			var examFormInput = $('#examInput').val();
+
+		   $.ajax({
+		    url: "/exam/add/"+examFormInput,
+		    contentType : 'application/json; charset=utf-8',
+		    type : "GET",
+		    })
+		    .done(function(data) {
+		    console.log('success', data);
+		    $('#examInput').val('');
+		    loadExams();
+		    })
+		    .fail(function(xhr) {
+		    console.log('error', xhr);
+		    });
+
+
+		});
+
+
+function loadExams(){
+	$.getJSON('/exam/all', function(data) {
+
+	    var examList = '<ol>';
+	    $.each(data, function(i, item) {
+	      var itemId = item.id.replace(/'/g, "&apos;");
+	      var itemName = item.id.replace(/\s+/g, '');
+	      examList += '<li>' + item.name + '</li>'
+
+	    });
+
+	    examList += '</ol>';
+
+	    $('#exam-list').html(examList);
+
+	  });
+	
+}
+
+
+
+
+
+
 function loadHeads(){
 
     $.getJSON('/categoryTag/path/head', function(data) {
@@ -146,6 +205,8 @@ function loadHeads(){
   });
 
 }
+
+
 
 function loadChildren(head,flag){
     var url = '/categoryTag/byParent/'+head;

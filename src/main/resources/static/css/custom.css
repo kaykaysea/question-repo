@@ -44,3 +44,8 @@ body {
 	
 	display:none;
 }
+
+.vertical-border{
+	
+	border-right: 3px solid #7f7f7f;
+}
