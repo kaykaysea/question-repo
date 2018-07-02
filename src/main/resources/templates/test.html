@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<title>Questions Home</title>
+
+<!-- Bootstrap -->
+<link href="css/bootstrap.min.css" rel="stylesheet" />
+<link href="css/custom.css" rel="stylesheet" />
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+</script>
+
+<script type="text/javascript"
+  src="MathJax/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+<script src="js/jquery.min.js"></script>
+<!-- <script type="text/javascript"
+	src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML">
+	
+</script>-->
+<script src="js/mathJaxOps.js"></script>
+
+<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+<body>
+	<div th:replace="fragments/header :: header">...</div>
+	
+
+	<div class="filler"></div>
+
+	<!-- Main container -->
+	<div class="container">
+		
+		
+		<div class="row">
+			<div class="col-md-1">
+			
+			</div>
+			<div class="col-md-8">
+				<div class="panel panel-default">
+					<div class="panel-body">Basic panel example</div>
+				</div>
+			</div>
+			<div class="col-md-2">
+				<div class="panel panel-default">
+					<div class="panel-body">
+						
+					</div>
+				</div>
+			
+			</div>
+			
+			
+		</div>
+		<div class="row ">
+			<div class="col-md-1">
+			
+			</div>
+			<div class="col-md-10">
+			
+				<div id="testQuestion" data-qno="" data-testId="">
+				
+				</div>
+
+			</div>
+			<div class="col-md-1">
+			
+			</div>
+			
+			
+		</div>
+		<div class="row ">
+			<div class="col-md-1">
+			
+			</div>
+			<div class="col-md-2 text-left">
+				<button  id="prevQ" type="button" class="btn btn-primary btn-block">Prev</button>
+			</div>
+			<div class="col-md-6">
+			
+			</div>
+			<div class="col-md-2 text-right">
+				<button id="nextQ" type="button" class="btn btn-primary btn-block">Next</button>
+			</div>
+			<div class="col-md-1">
+			
+			</div>
+			
+		</div>
+
+	</div>
+
+
+	<script>
+			Preview.Init();
+	</script>
+
+	
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/bootstrap-typeahead.min.js"></script>
+	<script src="js/smoke.min.js"></script>
+	<script src="js/mustache.min.js"></script>
+	<script src="js/test-ops.js"></script>
+	
+	
+	<script id="testQuestionTemplate" type="text/template">
+
+		<div class="panel panel-default">
+			<div class="panel-heading"><b>Question {{qNo}}</b></div>
+			<div class="panel-body">{{questionContent}}</div>
+			<ul class="list-group">
+				{{#optionList}}
+					<li class="list-group-item">
+
+					   <div class="row">
+
+					      <div class="col-md-1">
+							<input type="checkbox" value="">
+						  </div>
+						  <div class="col-md-9">
+							{{optionText}}
+						  </div>
+
+					   </div>
+				     
+					</li>
+				{{/optionList}}													
+			</ul>
+	    </div>
+	
+	</script>
+
+	<script id="questionTemplate" type="text/template">
+
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<div class="row">
+					<div class="col-md-10">
+						<h3 class="panel-title">Question {{qNo}}</h3>
+					</div>
+					<div class="col-md-2">
+						<div aria-label="..." role="group"
+							class="btn-group pull-right btn-group-xs">
+							<button type="button" data-id="{{id}}"
+								class="modbut btn btn-default">
+								<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+							</button>
+							<button type="button" data-id="{{id}}"
+								class="delbut btn btn-default">
+								<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+							</button>
+						</div>
+					</div>
+
+				</div>
+			</div>
+			<div class="panel-body">
+				
+				<div class="row">
+					<div class="col-md-12">{{questionContent}}</div>
+				</div>
+				<div class="filler-small"></div>
+
+				{{#optionList}}
+				<div class="row">
+					<div class="col-md-10">{{opAlpha}}) {{optionText}}</div>
+				</div>
+				{{/optionList}}
+
+			</div>
+		</div>
+
+	</script>
+
+
+	<script id="dropdownTemplate" type="text/template">
+
+			<option></option>
+			{{#.}}
+			<option>{{id}}</option>
+			{{/.}}
+  			
+	</script>
+
+</body>
+</html>

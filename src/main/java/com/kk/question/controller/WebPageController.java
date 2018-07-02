@@ -43,5 +43,11 @@ public class WebPageController {
 		
 	}
 	
+	@RequestMapping(value="/test", method=RequestMethod.GET)
+	public String renderQuestion(){
+		
+		return "test";
+		
+	}
 
 }

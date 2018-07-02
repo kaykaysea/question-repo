@@ -17,7 +17,7 @@ import com.kk.question.repo.ExamRepository;
 @RequestMapping("/exam")
 public class ExamController {
 	
-	private static final Logger logger = LoggerFactory.getLogger(QuestionController.class);
+	private static final Logger logger = LoggerFactory.getLogger(ExamController.class);
 	
 	@Autowired
 	ExamRepository examRepository;
