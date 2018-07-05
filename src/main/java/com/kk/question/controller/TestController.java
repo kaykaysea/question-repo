@@ -74,10 +74,19 @@ public class TestController {
 		
 		String userId = "1234";
 		TestState ts = testStateRepository.getTestStateByUserIdtestId(testId,userId);
-		
+	
 		return ts;
 		
+	}
+	
+	@RequestMapping(value="update/{testId}/{qNo}",method=RequestMethod.POST)
+	public void updateTestState(@RequestBody List<Boolean> optionList,@PathVariable("testId") String testId,@PathVariable("qNo") int qNo){
 		
+		TestState ts = testStateRepository.getTestStateByUserIdtestId(testId, "1234");
+		List<List<Boolean>> optionsList = ts.getOptionsState();
+		optionsList.set(qNo, optionList);
+		ts.setOptionsState(optionsList);
+		testStateRepository.save(ts);
 		
 	}
 

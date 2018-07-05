@@ -2,8 +2,12 @@ package com.kk.question.objects;
 
 import java.util.List;
 
+import org.springframework.data.annotation.Id;
+
 public class TestState {
 	
+	@Id
+	private String id;
 	private String testId;
 	private String userId;
 	private List<List<Boolean>> optionsState;
@@ -11,6 +15,12 @@ public class TestState {
 	private String timeStamp;
 	public int activeQNo;
 	
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
 	public String getTestId() {
 		return testId;
 	}

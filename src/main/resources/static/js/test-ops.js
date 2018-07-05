@@ -14,44 +14,37 @@ $("#nextQ").click(function(){
 	var qNo=$("#testQuestion").data('qno');
 	var testId=$('#testQuestion').data('testId');
 	var noOfQuestions = $("#testQuestion").data('noOfQuestions');
-	
 	var testState = sessionStorage.getItem("testState");
-	console.log('testState'+testState);
 	var testStateJSON = JSON.parse(testState);
 	
+	var optionArray = $($('.list-group li .row div input')).toArray();
+	var answerArray = getAnswerStatefromDivArray(optionArray);
 	
-	console.log('activeQNo'+testStateJSON.testId);
-	$("#prevQ").removeAttr('disabled');
-	if(qNo==noOfQuestions-1){
-		console.log('lastquestion');
-		$("#nextQ").attr('disabled','disabled');
-	}
+	console.log("input array is: "+optionArray);
 	
-	$.getJSON('test/id/'+testId+'/qNo/'+qNo, function(data){
-		var testQuestionHTML = '';
-		var template = $('#testQuestionTemplate').html();
-		var testQNo = 'qNo';
-		var qState = JSON.parse(sessionStorage.getItem('qNo_'+qNo+'_state'));
-		console.log('question state: '+JSON.parse(sessionStorage.getItem('qNo_'+qNo+'_state')))
-		data[testQNo]=qNo+1;
-		$('#testQuestion').data('qno',qNo+1);
-		testQuestionHTML = Mustache.to_html(template,data);
-		$('#testQuestion').html(testQuestionHTML);
-		
-		$.each(qState,function(index,value){
+	console.log("option array is: "+getAnswerStatefromDivArray(optionArray));
+	
+	console.log("json:"+JSON.stringify(getAnswerStatefromDivArray(optionArray)));
+	
+	$.ajax({
+        url: "test/update/"+testId+"/"+qNo,
+        contentType: 'application/json; charset=utf-8',
+        processData : false,
+        type : "POST",
+        data: JSON.stringify(answerArray)
 
-				$($('.list-group li .row div input')[index]).prop("checked",value);
-			
-		});
-		
-		MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
-		
-		
-		
-	});
+     }).done(function(data){
+    	console.log('inside done');
+    	
+    	$("#prevQ").removeAttr('disabled');
+    	if(qNo==noOfQuestions-1){
+    		console.log('lastquestion');
+    		$("#nextQ").attr('disabled','disabled');
+    	}
+    	loadQuestion(testId,qNo);
+	 
+     });
 
-	
-	
 });
 
 $("#prevQ").click(function(){
@@ -64,35 +57,39 @@ $("#prevQ").click(function(){
 	
 	$("#nextQ").removeAttr('disabled');
 	if(qNo==2){
-		console.log('firstquestion');
+
 		$("#prevQ").attr('disabled','disabled');
 	}
 	
-	$.getJSON('test/id/'+testId+'/qNo/'+prevQNo, function(data){
-		
-		var testQuestionHTML = '';
-		var template = $('#testQuestionTemplate').html();
-		var testQNo = 'qNo';
-		var qState = JSON.parse(sessionStorage.getItem('qNo_'+prevQNo+'_state'));
-		data[testQNo]=prevQNo+1;
-		$('#testQuestion').data('qno',prevQNo+1);
-		testQuestionHTML = Mustache.to_html(template,data);
-		$('#testQuestion').html(testQuestionHTML);
-		
-		$.each(qState,function(index,value){
-
-			$($('.list-group li .row div input')[index]).prop("checked",value);
-		
-		});
-		
-		MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
-			
-	});
-	
+	loadQuestion(testId,prevQNo);
 	
 });
 
+function loadQuestion(testId,qNo){
+	
+		$.getJSON('test/id/'+testId+'/qNo/'+qNo, function(data){
+		
+			var testQuestionHTML = '';
+			var template = $('#testQuestionTemplate').html();
+			var testQNo = 'qNo';
+			var qState = JSON.parse(sessionStorage.getItem('qNo_'+qNo+'_state'));
+			data[testQNo]=qNo+1;
+			$('#testQuestion').data('qno',qNo+1);
+			testQuestionHTML = Mustache.to_html(template,data);
+			$('#testQuestion').html(testQuestionHTML);
+		
+			$.each(qState,function(index,value){
 
+				$($('.list-group li .row div input')[index]).prop("checked",value);
+		
+			});
+		
+			MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
+			
+	   });
+	
+	
+}
 
 
 function loadTest(testId){
@@ -125,26 +122,8 @@ function loadTest(testId){
 				$("#nextQ").attr('disabled','disabled');
 			}
 			
-			
-			$.getJSON('test/id/'+testId+'/qNo/'+activeQNo, function(data){
-				var testQuestionHTML = '';
-				var template = $('#testQuestionTemplate').html();
-				var qNo = 'qNo';
-				var qState = JSON.parse(sessionStorage.getItem('qNo_'+activeQNo+'_state'));
-				data[qNo]=activeQNo+1;
-				testQuestionHTML = Mustache.to_html(template,data);
-				$('#testQuestion').html(testQuestionHTML);
-				
-				$.each(qState,function(index,value){
-
-					$($('.list-group li .row div input')[index]).prop("checked",value);
-				
-				});
-				
-				MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
-				
-			});
-		
+			loadQuestion(testId,activeQNo);
+	
 		}
 	
 	
@@ -201,34 +180,20 @@ function loadChildrenDropdown(parent,type,selectedvalue){
 
 }
 
-function populateExamDropdown(){
-	
-	$.ajax({
-		url:'/exam/all',
-		type:'get',
-		success:function(response){
-			
-			var len = response.length;
-			
-			for( var i = 0; i<len; i++){
-                var id = response[i]['id'];
-                var name = response[i]['name'];
-                
-                $("#exam").append("<option value='"+name+"'>"+name+"</option>");
 
-            }
-		}
 	
+function getAnswerStatefromDivArray(divArray){
+	
+	var booleanArray = $.map(divArray,function(i){
+		
+		return $(i).prop("checked");
 	});
 	
-}
-
-function populateExamYear(){
+	return booleanArray;
 	
-	for(var i=2018;i>=1960;i--){
-		
-		$("#exam-year").append("<option value='"+i+"'>"+i+"</option>");
-		
-	}
+	
 }
+        
+
+
 

@@ -10,5 +10,7 @@ public interface TestStateRepository extends MongoRepository<TestState, String> 
 	
 	@Query("{testId:'?0',userId:'?1'}")
 	TestState getTestStateByUserIdtestId(String testId,String userId);
+	
+
 
 }
