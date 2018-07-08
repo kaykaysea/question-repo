@@ -16,9 +16,11 @@ $("#nextQ").click(function(){
 	var noOfQuestions = $("#testQuestion").data('noOfQuestions');
 	var testState = sessionStorage.getItem("testState");
 	var testStateJSON = JSON.parse(testState);
+	var qIndex = qNo-1;
 	
 	var optionArray = $($('.list-group li .row div input')).toArray();
 	var answerArray = getAnswerStatefromDivArray(optionArray);
+	sessionStorage.setItem('qNo_'+qIndex+'_state',JSON.stringify(answerArray));
 	
 	console.log("input array is: "+optionArray);
 	
@@ -26,15 +28,15 @@ $("#nextQ").click(function(){
 	
 	console.log("json:"+JSON.stringify(getAnswerStatefromDivArray(optionArray)));
 	
-	$.ajax({
+	/*$.ajax({
         url: "test/update/"+testId+"/"+qNo,
         contentType: 'application/json; charset=utf-8',
         processData : false,
         type : "POST",
-        data: JSON.stringify(answerArray)
+        data: JSON.stringify(answerArray)*/
 
-     }).done(function(data){
-    	console.log('inside done');
+     //}).done(function(data){
+    //	console.log('inside done');
     	
     	$("#prevQ").removeAttr('disabled');
     	if(qNo==noOfQuestions-1){
@@ -43,7 +45,7 @@ $("#nextQ").click(function(){
     	}
     	loadQuestion(testId,qNo);
 	 
-     });
+     //});
 
 });
 
@@ -54,6 +56,11 @@ $("#prevQ").click(function(){
 	var testId=$('#testQuestion').data('testId');
 	var testState = sessionStorage.getItem("testState");
 	var testStateJSON = JSON.parse(testState);
+	var qIndex = qNo-1;
+	
+	var optionArray = $($('.list-group li .row div input')).toArray();
+	var answerArray = getAnswerStatefromDivArray(optionArray);
+	sessionStorage.setItem('qNo_'+qIndex+'_state',JSON.stringify(answerArray));
 	
 	$("#nextQ").removeAttr('disabled');
 	if(qNo==2){
@@ -98,11 +105,12 @@ function loadTest(testId){
 		url:'test/'+testId+'/state',
 		type:'get',
 		success:function(data){
-			sessionStorage.setItem("testState",JSON.stringify(data));
+			//sessionStorage.setItem("testState",JSON.stringify(data));
 			var activeQNo = data.activeQNo;
 			var noOfQuestions = data.noOfQuestions;
 			
 			$.each(data.optionsState,function(index,value){
+				console.log(JSON.stringify(value));
 				sessionStorage.setItem('qNo_'+index+'_state',JSON.stringify(value));
 			});
 			
