@@ -1,7 +1,5 @@
 package com.kk.question.controller;
 
-import java.util.ArrayList;
-import java.util.BitSet;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -86,6 +84,16 @@ public class TestController {
 		List<List<Boolean>> optionsList = ts.getOptionsState();
 		optionsList.set(qNo, optionList);
 		ts.setOptionsState(optionsList);
+		testStateRepository.save(ts);
+		
+	}
+	
+	@RequestMapping(value="update/{testId}",method=RequestMethod.POST)
+	public void submitFinalTestState(@RequestBody List<List<Boolean>> optionsList,@PathVariable("testId") String testId){
+		
+		TestState ts = testStateRepository.getTestStateByUserIdtestId(testId, "1234");
+		ts.setOptionsState(optionsList);
+		ts.setActiveQNo(-2);
 		testStateRepository.save(ts);
 		
 	}

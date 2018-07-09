@@ -14,8 +14,6 @@ $("#nextQ").click(function(){
 	var qNo=$("#testQuestion").data('qno');
 	var testId=$('#testQuestion').data('testId');
 	var noOfQuestions = $("#testQuestion").data('noOfQuestions');
-	var testState = sessionStorage.getItem("testState");
-	var testStateJSON = JSON.parse(testState);
 	var qIndex = qNo-1;
 	
 	var optionArray = $($('.list-group li .row div input')).toArray();
@@ -41,7 +39,9 @@ $("#nextQ").click(function(){
     	$("#prevQ").removeAttr('disabled');
     	if(qNo==noOfQuestions-1){
     		console.log('lastquestion');
-    		$("#nextQ").attr('disabled','disabled');
+    		//$("#nextQ").attr('disabled','disabled');
+    		$('#nextQ').hide();
+    		$('#finishTest').show();
     	}
     	loadQuestion(testId,qNo);
 	 
@@ -54,8 +54,6 @@ $("#prevQ").click(function(){
 	var qNo=$("#testQuestion").data('qno');
 	var prevQNo=qNo-2;
 	var testId=$('#testQuestion').data('testId');
-	var testState = sessionStorage.getItem("testState");
-	var testStateJSON = JSON.parse(testState);
 	var qIndex = qNo-1;
 	
 	var optionArray = $($('.list-group li .row div input')).toArray();
@@ -63,6 +61,8 @@ $("#prevQ").click(function(){
 	sessionStorage.setItem('qNo_'+qIndex+'_state',JSON.stringify(answerArray));
 	
 	$("#nextQ").removeAttr('disabled');
+	$('#nextQ').show();
+	$('#finishTest').hide();
 	if(qNo==2){
 
 		$("#prevQ").attr('disabled','disabled');
@@ -201,6 +201,46 @@ function getAnswerStatefromDivArray(divArray){
 	
 	
 }
+
+
+$("#finishTest").click(function(){
+	
+	var qNo=$("#testQuestion").data('qno');
+	var noOfQ = $("#testQuestion").data('noOfQuestions');
+	var resultArray = [];
+	var testId=$('#testQuestion').data('testId');
+	var qIndex=qNo-1;
+	
+	var optionArray = $($('.list-group li .row div input')).toArray();
+	var answerArray = getAnswerStatefromDivArray(optionArray);
+	sessionStorage.setItem('qNo_'+qIndex+'_state',JSON.stringify(answerArray));
+	
+	
+	for(i=0;i<noOfQ;i++){
+		
+		console.log("array item: "+JSON.parse(sessionStorage.getItem('qNo_'+i+'_state')));
+		resultArray[i]=JSON.parse(sessionStorage.getItem('qNo_'+i+'_state'));
+		
+	}
+	console.log("result array: "+resultArray);
+	console.log('json result array: '+resultArray);
+	console.log('finished test');
+	
+	$.ajax({
+    url: "test/update/"+testId,
+    contentType: 'application/json; charset=utf-8',
+    processData : false,
+    type : "POST",
+    dataType:"json",
+    data: JSON.stringify(resultArray)
+
+    }).done(function(data){
+    console.log('inside done');
+    });
+	
+	
+	
+});
         
 
 
