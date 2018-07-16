@@ -26,26 +26,11 @@ $("#nextQ").click(function(){
 	
 	console.log("json:"+JSON.stringify(getAnswerStatefromDivArray(optionArray)));
 	
-	/*$.ajax({
-        url: "test/update/"+testId+"/"+qNo,
-        contentType: 'application/json; charset=utf-8',
-        processData : false,
-        type : "POST",
-        data: JSON.stringify(answerArray)*/
 
-     //}).done(function(data){
-    //	console.log('inside done');
-    	
     	$("#prevQ").removeAttr('disabled');
-    	if(qNo==noOfQuestions-1){
-    		console.log('lastquestion');
-    		//$("#nextQ").attr('disabled','disabled');
-    		$('#nextQ').hide();
-    		$('#finishTest').show();
-    	}
+
     	loadQuestion(testId,qNo);
 	 
-     //});
 
 });
 
@@ -74,27 +59,62 @@ $("#prevQ").click(function(){
 
 function loadQuestion(testId,qNo){
 	
-		$.getJSON('test/id/'+testId+'/qNo/'+qNo, function(data){
-		
-			var testQuestionHTML = '';
-			var template = $('#testQuestionTemplate').html();
-			var testQNo = 'qNo';
-			var qState = JSON.parse(sessionStorage.getItem('qNo_'+qNo+'_state'));
-			data[testQNo]=qNo+1;
-			$('#testQuestion').data('qno',qNo+1);
-			testQuestionHTML = Mustache.to_html(template,data);
-			$('#testQuestion').html(testQuestionHTML);
-		
-			$.each(qState,function(index,value){
-
-				$($('.list-group li .row div input')[index]).prop("checked",value);
-		
-			});
-		
-			MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
-			
-	   });
 	
+		if(qNo==-2){
+			
+			var testFinishHTML = '';
+			
+			var body = {
+				finishText : 'Looks like you have already taken the test. Please go back to home page to take another test'						
+			}
+				
+			var template = $('#testFinishTemplate').html();
+			testFinishHTML = Mustache.to_html(template,body);
+			$('#testQuestion').html(testFinishHTML);
+			
+		} else{
+			
+			$.getJSON('test/id/'+testId+'/qNo/'+qNo, function(data){
+				
+				var testQuestionHTML = '';
+				var template = $('#testQuestionTemplate').html();
+				var testQNo = 'qNo';
+				var qState = JSON.parse(sessionStorage.getItem('qNo_'+qNo+'_state'));
+				var noOfQuestions = $("#testQuestion").data('noOfQuestions');
+				data[testQNo]=qNo+1;
+				$('#testQuestion').data('qno',qNo+1);
+				testQuestionHTML = Mustache.to_html(template,data);
+				$('#testQuestion').html(testQuestionHTML);
+			
+				$.each(qState,function(index,value){
+
+					$($('.list-group li .row div input')[index]).prop("checked",value);
+			
+				});
+			
+				MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
+				
+				$("#prevQ").show();
+				
+				if(qNo==noOfQuestions-1){
+					$("#nextQ").hide();
+					$('#finishTest').show();
+					
+				}
+				else{
+					$("#nextQ").show();
+				}
+				
+				
+				
+				
+				
+		   });
+			
+			
+		}
+	
+
 	
 }
 
@@ -105,9 +125,21 @@ function loadTest(testId){
 		url:'test/'+testId+'/state',
 		type:'get',
 		success:function(data){
-			//sessionStorage.setItem("testState",JSON.stringify(data));
+
 			var activeQNo = data.activeQNo;
 			var noOfQuestions = data.noOfQuestions;
+			console.log('inside load test success active QNo'+ activeQNo);
+			
+			if(activeQNo===-2){
+				console.log('inside -2 loop');
+				$("#prevQ").hide();
+				$("#nextQ").hide();
+				
+			}
+			
+			if(activeQNo===-1){
+				
+			}
 			
 			$.each(data.optionsState,function(index,value){
 				console.log(JSON.stringify(value));
@@ -222,20 +254,31 @@ $("#finishTest").click(function(){
 		resultArray[i]=JSON.parse(sessionStorage.getItem('qNo_'+i+'_state'));
 		
 	}
-	console.log("result array: "+resultArray);
-	console.log('json result array: '+resultArray);
-	console.log('finished test');
-	
+
 	$.ajax({
     url: "test/update/"+testId,
     contentType: 'application/json; charset=utf-8',
     processData : false,
     type : "POST",
     dataType:"json",
-    data: JSON.stringify(resultArray)
+    data: JSON.stringify(resultArray),
+    success:
+    	function(data){
+    	console.log('inside finish done');
+    	var testFinishHTML = '';
+		
+		var body = {
+				
+			finishText : 'Test submitted successfully. Please go back to home page to take another test'
+				
+		}
+			
+		var template = $('#testFinishTemplate').html();
+		testFinishHTML = Mustache.to_html(template,body);
+		console.log('inside final done');
+		$('#testQuestion').html(testFinishHTML);
+    }
 
-    }).done(function(data){
-    console.log('inside done');
     });
 	
 	

@@ -53,3 +53,9 @@ body {
 #finishTest{
 	display:none;
 }
+
+
+#prevQ,#nextQ{
+	
+	display:none;
+}
